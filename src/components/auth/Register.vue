@@ -21,7 +21,7 @@
           <button type="submit" class="btn btn-primary btn-block">Register</button>
       </div>    
   </form>
-  <p class="text-center"><a routerLink="/login">Login</a></p>
+  <p class="text-center"><router-link to="/login">Login</router-link></p>
 </div>
 </template>
 
@@ -35,10 +35,10 @@ export default {
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css);
 
 .register-form {
-  width: 340px;
+    width: 340px;
     margin: 50px auto;
 }
-  .login-form form {
+  .register-form form {
     margin-bottom: 15px;
       background: #f7f7f7;
       box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);

@@ -2,8 +2,8 @@
   <div class="topnav">
     <router-link class='link' to="/">Home</router-link>
     <router-link class='link' to="/news">News</router-link>
-    <router-link class='link' to="/register">Register</router-link>
-    <router-link class='link' to="/login">Login</router-link>
+    <router-link class='link-float-right' to="/register">Register</router-link>
+    <router-link class='link-float-right' to="/login">Login</router-link>
   </div>
 </template>
 
@@ -28,6 +28,14 @@ export default {};
   text-decoration: none;
   font-size: 17px;
 }
+.topnav .link-float-right{
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
 
 /* Change the color of links on hover */
 .topnav a:hover {
@@ -37,7 +45,7 @@ export default {};
 
 /* Add a color to the active/current link */
 .topnav .router-link-exact-active {
-  background-color: #4CAF50;
+  background-color: #2e6da4;
   color: white;
 }
 </style>
