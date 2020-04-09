@@ -1,9 +1,9 @@
 <template>
   <div class="topnav">
-    <a class="active" href="#home">Home</a>
-    <a href="#news">News</a>
-    <a href="#contact">Register</a>
-    <a href="#about">Login</a>
+    <router-link class='link' to="/">Home</router-link>
+    <router-link class='link' to="/news">News</router-link>
+    <router-link class='link' to="/register">Register</router-link>
+    <router-link class='link' to="/login">Login</router-link>
   </div>
 </template>
 
@@ -15,10 +15,12 @@ export default {};
 .topnav {
   background-color: #333;
   overflow: hidden;
+  
+  text-decoration: none;
 }
 
 /* Style the links inside the navigation bar */
-.topnav a {
+.topnav .link{
   float: left;
   color: #f2f2f2;
   text-align: center;
@@ -34,7 +36,7 @@ export default {};
 }
 
 /* Add a color to the active/current link */
-.topnav a.active {
+.topnav .router-link-exact-active {
   background-color: #4CAF50;
   color: white;
 }
