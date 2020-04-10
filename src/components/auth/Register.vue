@@ -1,6 +1,6 @@
 <template>
   <div class="register-form">
-    <form>
+    <form  @submit.prevent="register">
       <h2 class="text-center">Register</h2>
       <div class="form-group">
         <input type="text" id="email" name="email" v-model="email" @blur="$v.email.$touch"  class="form-control" placeholder="E-mail"/>
@@ -54,6 +54,9 @@
 <script>
 import { validationMixin } from "vuelidate";
 import { required, email, sameAs, minLength, maxLength } from "vuelidate/lib/validators";
+
+import authAxios from "@/axios";
+
 export default {
   mixins: [validationMixin],
   data() {
@@ -75,6 +78,33 @@ export default {
     },
     rePassword: {
       sameAs: sameAs("password")
+    }
+  },
+  methods: {
+    register() {
+      const payload = {
+        email: this.email,
+        password: this.password,
+      };
+
+      // Project Settings -> Web API key
+      authAxios
+        .post(
+          "user/register",
+            payload
+          
+        )
+        .then(res => {
+          const { idToken, localId } = res.data;
+
+          localStorage.setItem('x-auth-token', idToken);
+          localStorage.setItem('userId', localId);
+
+          this.$router.push('/login');
+        })
+        .catch(err => {
+          console.error(err);
+        });
     }
   }
 };

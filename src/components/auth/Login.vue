@@ -1,6 +1,6 @@
 <template>
 <div class="login-form">
-  <form >
+  <form @submit.prevent="login">
       <h2 class="text-center">Login</h2>       
       <div class="form-group">
           <input v-model="email" @blur="$v.email.$touch" type="text" class="form-control" placeholder="E-mail" name="email" id="email">
@@ -10,7 +10,7 @@
         </template>
       </div>
         <div class="form-group">
-          <input v-model="password" @blur="$v.password.$touch" name="password" id="password"
+          <input v-model="password" @blur="$v.password.$touch" type="password" name="password" id="password"
           class="form-control" placeholder="Password">
         </div>
         <template v-if="$v.password.$error">
@@ -29,6 +29,9 @@
 <script>
 import { validationMixin } from "vuelidate";
 import { required, email, minLength, maxLength } from "vuelidate/lib/validators";
+
+import authAxios from "@/axios";
+
 export default {
   mixins: [validationMixin],
   data() {
@@ -47,6 +50,29 @@ export default {
       minLength: minLength(4), 
       maxLength: maxLength(13)
     },
+  },
+  methods: {
+    login() {
+      const payload = {
+        email: this.email,
+        password: this.password,
+      };
+
+      // Project Settings -> Web API key
+      authAxios
+        .post(
+          'user/login',
+          payload
+        )
+        .then(res => {
+          console.log(res)
+
+          this.$router.push("/");
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
   }
 
 }
