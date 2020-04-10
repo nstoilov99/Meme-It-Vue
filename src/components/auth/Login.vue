@@ -62,11 +62,9 @@ export default {
       authAxios
         .post(
           'user/login',
-          payload
+          payload,
         )
-        .then(res => {
-          console.log(res)
-
+        .then(() => {
           this.$router.push("/");
         })
         .catch(err => {

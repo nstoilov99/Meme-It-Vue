@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Navigation />
-    <router-view ></router-view>
+    <Navigation @onAuth="isAuth = $event" :isAuth="isAuth" />
+    <router-view @onAuth="isAuth = $event" :isAuth="isAuth" ></router-view>
   </div>
 </template>
 
@@ -10,9 +10,14 @@ import Navigation from './components/core/Navigation.vue'
 
 export default {
   name: 'App',
+   data: function() {
+    return {
+      isAuth: this.$cookie.get('x-auth-token') !== null
+    }
+  },
   components: {
     Navigation
-  }
+  },
 }
 </script>
 

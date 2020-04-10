@@ -2,13 +2,29 @@
   <div class="topnav">
     <router-link class='link' to="/">Home</router-link>
     <router-link class='link' to="/news">News</router-link>
-    <router-link class='link-float-right' to="/register">Register</router-link>
-    <router-link class='link-float-right' to="/login">Login</router-link>
+    <router-link v-if="!isAuth" class='link-float-right' to="/register">Register</router-link>
+    <router-link v-if="!isAuth" class='link-float-right' to="/login">Login</router-link>
+
+    <a v-if="isAuth" class='link-float-right' @click="onLogout">Logout</a>
+    <router-link v-if="isAuth" class='link-float-right' to="/register">Profile</router-link>
   </div>
+    
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    isAuth: Boolean
+  },
+  name: "Navigation",
+  methods: {
+    onLogout() {
+      this.$emit('onAuth', false);
+      this.$cookie.delete('x-auth-token', {domain: 'localhost'});
+      
+    }
+  }
+};
 </script>
 
 <style>
