@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 
 import Register from './components/auth/Register.vue'
 import Login from './components/auth/Login.vue'
+import MemeCreate from './components/meme/Create.vue'
 
 Vue.use(VueRouter);
 
@@ -17,13 +18,13 @@ function anonymousGuard(to, from, next) {
     }
 }
 
-// function authGuard(to, from, next) {
-//     if (localStorage.getItem('x-auth-token') === null) {
-//         next('/sign-in');
-//     } else {
-//         next();
-//     }
-// }
+function authGuard(to, from, next) {
+    if (Vue.cookie.get('x-auth-token') === null) {
+        next('/sign-in');
+    } else {
+        next();
+    }
+}
 
 
 const routes = [
@@ -33,6 +34,9 @@ const routes = [
     },
     {
         path: '/register', component: Register, beforeEnter: anonymousGuard
+    },
+    {
+        path: '/meme-create', component: MemeCreate, beforeEnter: authGuard
     },
     // {
     //     path: '*', component: NotFound

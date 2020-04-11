@@ -5,8 +5,10 @@
     <router-link v-if="!isAuth" class='link-float-right' to="/register">Register</router-link>
     <router-link v-if="!isAuth" class='link-float-right' to="/login">Login</router-link>
 
+
     <a v-if="isAuth" class='link-float-right' @click="onLogout">Logout</a>
     <router-link v-if="isAuth" class='link-float-right' to="/register">Profile</router-link>
+    <router-link v-if="isAuth" class='link-float-right' to="/meme-create">Create a meme</router-link>
   </div>
     
 </template>
