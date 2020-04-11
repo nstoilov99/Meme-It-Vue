@@ -4,6 +4,10 @@
 ```
 npm install
 ```
+## REST server
+```
+Download rest server from https://github.com/nstoilov99/Meme-It-Vue-Rest/
+```
 
 ### Compiles and hot-reloads for development
 ```
