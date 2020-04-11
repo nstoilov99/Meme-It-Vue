@@ -2,7 +2,7 @@
   <div>
     <h1>Memes</h1>
       <div v-if="memes" class="meme-box">
-          <div a v-for="m in memes" :key="m.memeId" class="card">
+          <div  v-for="m in memes" :key="m.memeId" class="card">
             <h3>{{m.memeTitle}}</h3>
             <img v-bind:src="m.imageUrl" alt="404" style="width:100%" />
             <p>

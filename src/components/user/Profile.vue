@@ -66,12 +66,18 @@
         <div class="panel-body panel-primary">Related memes</div>
         <div class="panel-footer">
           <div class="panel panel-default">
-            <div class="panel-body panel-primary">My own memes:</div>
+            <div class="panel-body panel-primary">My own memes: {{memes.length}}</div>
 
             <div class="panel-footer">
               <ul class="list-group">
-                <li class="list-group-item">
-                  <!--  -->
+                <li  v-for="m in memes" :key="m.memeId" class="list-group-item">
+                  <div class="card">
+                    <h3>{{m.memeTitle}}</h3>
+                    <img v-bind:src="m.imageUrl" alt="404" style="width:100%" />
+                    <p>
+                    <!-- <button *ngIf="isLogged" [routerLink]="['detail', meme._id]">View details</button> -->
+                    </p>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -93,9 +99,10 @@ import {
 } from "vuelidate/lib/validators";
 
 import authAxios from "@/axios";
+import memesMixin from '../mixins/user-memes-mixin'
 
 export default {
-  mixins: [validationMixin],
+  mixins: [validationMixin, memesMixin],
   data() {
     return {
       user: sessionStorage.getItem("user"),
@@ -104,6 +111,12 @@ export default {
       password: "",
       rePassword: ""
     };
+  },
+  created() {
+    this.getAllMemes();
+    console.log(this.memes);
+    
+    
   },
   validations: {
     email: {
