@@ -65,7 +65,6 @@ export default {
           payload,
         )
         .then((res) => {
-          console.log(res);
           const { email, _id } = res.data;
 
           sessionStorage.setItem("user", email);

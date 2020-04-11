@@ -5,7 +5,7 @@
           <div a v-for="m in memes" :key="m.memeId" class="card">
             <h3>{{m.memeTitle}}</h3>
             <img v-bind:src="m.imageUrl" alt="404" style="width:100%" />
-              <button v-if="isAuth" >View details</button>
+              <router-link v-if="isAuth" class='link-float-right' :to="'detail/'+m._id" tag="button">View details</router-link>
           </div>
       </div>
   </div>

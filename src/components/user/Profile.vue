@@ -141,13 +141,10 @@ export default {
       // Project Settings -> Web API key
       authAxios
         .put("user/" + sessionStorage.getItem("userId"), payload)
-        .then(res => {
-          //   const { email, _id } = res.data;
-          console.log(res);
+        .then(() => {
 
-          //   sessionStorage.setItem("user", email);
-          //   sessionStorage.setItem("userID", _id);
-          this.$router.go();
+          this.$cookie.delete('x-auth-token', {domain: 'localhost'});
+          this.$router.push('/login')
         })
         .catch(err => {
           console.error(err);
@@ -156,10 +153,8 @@ export default {
     deleteMeme(memeId) {
       authAxios
         .delete("memes/" + memeId)
-        .then(res => {
+        .then(() => {
           //   const { email, _id } = res.data;
-          console.log(res);
-
           this.$router.go();
         })
         .catch(err => {
