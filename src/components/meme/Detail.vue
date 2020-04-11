@@ -34,13 +34,10 @@ export default {
       const payload = {
         comment: this.comment
       };
-
-      // Project Settings -> Web API key
       authAxios
         .put(
-          "memes/detail/"+this.$route.params.id,
+          '/memes/detail/'+this.$route.params.id,
             payload
-          
         )
         .then(res => {
             console.log(res);
@@ -49,7 +46,8 @@ export default {
         .catch(err => {
           console.error(err);
         });
-    }
+    },
+    
   },
   mixins: [memesMixin]
 };

@@ -7,6 +7,7 @@ import Register from './components/auth/Register.vue'
 import Login from './components/auth/Login.vue'
 import MemeCreate from './components/meme/Create.vue'
 import MemeDetail from './components/meme/Detail.vue'
+import NotFound from './components/shared/NotFound.vue'
 
 
 Vue.use(VueRouter);
@@ -48,9 +49,9 @@ const routes = [
         path: '/profile', component: Profile, beforeEnter: authGuard
     },
 
-    // {
-    //     path: '*', component: NotFound
-    // }
+    {
+        path: '*', component: NotFound
+    }
 ];
 
 export default new VueRouter({

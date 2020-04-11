@@ -140,7 +140,7 @@ export default {
 
       // Project Settings -> Web API key
       authAxios
-        .put("user/" + sessionStorage.getItem("userId"), payload)
+        .put("user/" + this.userId, payload)
         .then(() => {
 
           this.$cookie.delete('x-auth-token', {domain: 'localhost'});
