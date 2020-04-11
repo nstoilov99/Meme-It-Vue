@@ -1,13 +1,12 @@
 <template>
   <div class="topnav">
     <router-link class='link' to="/">Home</router-link>
-    <router-link class='link' to="/news">News</router-link>
     <router-link v-if="!isAuth" class='link-float-right' to="/register">Register</router-link>
     <router-link v-if="!isAuth" class='link-float-right' to="/login">Login</router-link>
 
 
     <a v-if="isAuth" class='link-float-right' @click="onLogout">Logout</a>
-    <router-link v-if="isAuth" class='link-float-right' to="/register">Profile</router-link>
+    <router-link v-if="isAuth" class='link-float-right' to="/profile">Profile</router-link>
     <router-link v-if="isAuth" class='link-float-right' to="/meme-create">Create a meme</router-link>
   </div>
     
@@ -23,7 +22,7 @@ export default {
     onLogout() {
       this.$emit('onAuth', false);
       this.$cookie.delete('x-auth-token', {domain: 'localhost'});
-      
+      this.$router.push('/login')
     }
   }
 };

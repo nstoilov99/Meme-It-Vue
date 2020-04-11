@@ -64,7 +64,13 @@ export default {
           'user/login',
           payload,
         )
-        .then(() => {
+        .then((res) => {
+          console.log(res);
+          const { email, _id } = res.data;
+
+          sessionStorage.setItem("user", email);
+          sessionStorage.setItem("userId", _id);
+          
           this.$router.push("/");
         })
         .catch(err => {

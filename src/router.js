@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Home from './components/meme/List.vue'
+import Profile from './components/user/Profile.vue'
 import Register from './components/auth/Register.vue'
 import Login from './components/auth/Login.vue'
 import MemeCreate from './components/meme/Create.vue'
@@ -38,6 +39,10 @@ const routes = [
     {
         path: '/meme-create', component: MemeCreate, beforeEnter: authGuard
     },
+    {
+        path: '/profile', component: Profile, beforeEnter: authGuard
+    },
+
     // {
     //     path: '*', component: NotFound
     // }
