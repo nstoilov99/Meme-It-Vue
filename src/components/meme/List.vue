@@ -2,12 +2,10 @@
   <div>
     <h1>Memes</h1>
       <div v-if="memes" class="meme-box">
-          <div  v-for="m in memes" :key="m.memeId" class="card">
+          <div a v-for="m in memes" :key="m.memeId" class="card">
             <h3>{{m.memeTitle}}</h3>
             <img v-bind:src="m.imageUrl" alt="404" style="width:100%" />
-            <p>
-              <!-- <button *ngIf="isLogged" [routerLink]="['detail', meme._id]">View details</button> -->
-            </p>
+              <button v-if="isAuth" >View details</button>
           </div>
       </div>
   </div>
@@ -41,7 +39,6 @@ export default {
 
 }
 .card {
-    
     max-width: 400px;
     margin: auto;
     text-align: center;

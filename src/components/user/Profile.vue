@@ -29,7 +29,7 @@
               <label for="password">New Password</label>
               <input
                 v-model="password"
-                @blur="$v.password.$touch" 
+                @blur="$v.password.$touch"
                 formControlName="password"
                 type="password"
                 id="password"
@@ -38,21 +38,24 @@
               />
               <template v-if="$v.password.$error">
                 <p v-if="!$v.password.required" class="error-message">Password is required!</p>
-                <p v-else-if="!$v.password.minLength || !$v.password.maxLength" class="error-message">Password should be between 4 and 12 symbols!</p>
+                <p
+                  v-else-if="!$v.password.minLength || !$v.password.maxLength"
+                  class="error-message"
+                >Password should be between 4 and 12 symbols!</p>
               </template>
             </div>
             <div class="form-group">
               <label for="rePassword">Re-Password</label>
               <input
                 v-model="rePassword"
-                @blur="$v.rePassword.$touch" 
+                @blur="$v.rePassword.$touch"
                 formControlName="rePassword"
                 type="password"
                 id="rePassword"
                 class="form-control"
                 placeholder="************"
               />
-              <template v-if="$v.rePassword.$error">    
+              <template v-if="$v.rePassword.$error">
                 <p v-if="!$v.rePassword.sameAs" class="error-message">Passwords does not match!</p>
               </template>
             </div>
@@ -62,25 +65,23 @@
       </div>
     </div>
     <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-body panel-primary">Related memes</div>
-        <div class="panel-footer">
-          <div class="panel panel-default">
-            <div class="panel-body panel-primary">My own memes: {{memes.length}}</div>
-
-            <div class="panel-footer">
-              <ul class="list-group">
-                <li  v-for="m in memes" :key="m.memeId" class="list-group-item">
-                  <div class="card">
-                    <h3>{{m.memeTitle}}</h3>
-                    <img v-bind:src="m.imageUrl" alt="404" style="width:100%" />
-                    <p>
-                    <!-- <button *ngIf="isLogged" [routerLink]="['detail', meme._id]">View details</button> -->
-                    </p>
-                  </div>
-                </li>
-              </ul>
-            </div>
+      <div class="panel-footer">
+        <div class="panel panel-default">
+          <div class="panel-body panel-primary">My own memes: {{memes.length}}</div>
+          <div class="panel-footer">
+            <ul class="list-group">
+              <li v-for="m in memes" :key="m.memeId" class="list-group-item">
+                <div class="card">
+                  <h3>{{m.memeTitle}}</h3>
+                  <img v-bind:src="m.imageUrl" alt="404" style="width:100%" />
+                  <button
+                    @click="deleteMeme(m._id)"
+                    type="submit"
+                    class="btn btn-primary btn-block"
+                  >Delete</button>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -99,7 +100,7 @@ import {
 } from "vuelidate/lib/validators";
 
 import authAxios from "@/axios";
-import memesMixin from '../mixins/user-memes-mixin'
+import memesMixin from "../mixins/user-memes-mixin";
 
 export default {
   mixins: [validationMixin, memesMixin],
@@ -115,8 +116,6 @@ export default {
   created() {
     this.getAllMemes();
     console.log(this.memes);
-    
-    
   },
   validations: {
     email: {
@@ -133,26 +132,35 @@ export default {
     }
   },
   methods: {
-      changeUserInfo() {
+    changeUserInfo() {
       const payload = {
         email: this.email,
-        password: this.password,
+        password: this.password
       };
 
       // Project Settings -> Web API key
       authAxios
-        .put(
-          "user/"+sessionStorage.getItem("userId"),
-            payload
-          
-        )
+        .put("user/" + sessionStorage.getItem("userId"), payload)
         .then(res => {
-        //   const { email, _id } = res.data;
-        console.log(res);
-        
-        //   sessionStorage.setItem("user", email);
-        //   sessionStorage.setItem("userID", _id);
-          this.$router.push('/profile');
+          //   const { email, _id } = res.data;
+          console.log(res);
+
+          //   sessionStorage.setItem("user", email);
+          //   sessionStorage.setItem("userID", _id);
+          this.$router.go();
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    },
+    deleteMeme(memeId) {
+      authAxios
+        .delete("memes/" + memeId)
+        .then(res => {
+          //   const { email, _id } = res.data;
+          console.log(res);
+
+          this.$router.go();
         })
         .catch(err => {
           console.error(err);
@@ -166,5 +174,26 @@ export default {
 p.error-message {
   color: red;
   font-style: italic;
+}
+.card {
+  max-width: 475px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+h3 {
+  text-decoration: underline;
+}
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  width: 25%;
+  margin: auto;
+  margin-top: 15px;
+  font-size: 18px;
 }
 </style>
