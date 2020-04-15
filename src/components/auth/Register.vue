@@ -53,12 +53,11 @@
 
 <script>
 import { validationMixin } from "vuelidate";
+import userMixin from "../mixins/user-register-mixin"
 import { required, email, sameAs, minLength, maxLength } from "vuelidate/lib/validators";
 
-import authAxios from "@/axios";
-
 export default {
-  mixins: [validationMixin],
+  mixins: [validationMixin, userMixin],
   data() {
     return {
       email: "",
@@ -86,25 +85,7 @@ export default {
         email: this.email,
         password: this.password,
       };
-
-      // Project Settings -> Web API key
-      authAxios
-        .post(
-          "user/register",
-            payload
-          
-        )
-        .then(res => {
-          const { idToken, localId } = res.data;
-
-          localStorage.setItem('x-auth-token', idToken);
-          localStorage.setItem('userId', localId);
-
-          this.$router.push('/login');
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      this.userRegister(payload);
     }
   }
 };
