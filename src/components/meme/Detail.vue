@@ -4,6 +4,7 @@
       <h2>{{meme.memeTitle}}</h2>
       <img v-bind:src="meme.imageUrl" alt="404" style="width:50%" />
     </div>
+    <p class="comment" v-for="c in comments" :key="c.id">{{c}}</p>
     <form @submit.prevent="memeComment">
       <textarea v-model="comment">
             Comment here...
@@ -15,51 +16,56 @@
 
 <script>
 import memesMixin from "../mixins/meme-mixin";
+import commentMixin from "../mixins/meme-comment-mixin";
 
-import authAxios from "@/axios";
 export default {
   data() {
     return {
-      comment: "",
+      comment: ""
     };
   },
   beforeCreate() {
     this.$emit("onAuth", this.$cookie.get("x-auth-token") !== null);
   },
   created() {
-    this.getAllMemes(this.$route.params.id);
+    this.getMeme(this.$route.params.id);
   },
   methods: {
-      memeComment() {
+    memeComment() {
       const payload = {
         comment: this.comment
       };
-      authAxios
-        .put(
-          '/memes/detail/'+this.$route.params.id,
-            payload
-        )
-        .then(res => {
-            console.log(res);
-            
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    },
-    
+      this.createComment(payload);
+    }
   },
-  mixins: [memesMixin]
+  mixins: [memesMixin, commentMixin]
 };
 </script>
 
 <style scoped>
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css);
 form {
   margin-top: 50px;
 }
 .btn {
   font-size: 15px;
   font-weight: bold;
+}
+.comment {
+  margin-top: 50px;
+  margin-left: 350px;
+  margin-right: 350px;
+  padding:25px;
+  border: 2px solid lightblue;  
+  background-color:rgb(247, 253, 255);
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-top-color: lightblue;
+  border-right-color: lightblue;
+  border-bottom-color: lightblue;
+  border-left-color: lightblue; 
 }
 
 textarea {
