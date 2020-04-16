@@ -7,7 +7,7 @@ export default {
          }
     },
     methods: {
-        async getAllMemes(id) {
+        async getMeme(id) {
             try {
                 const res = await axios.get(`memes/`+id);
                 this.meme = res.data[0];

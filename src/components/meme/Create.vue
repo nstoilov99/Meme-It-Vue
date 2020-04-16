@@ -7,7 +7,6 @@
           <input v-model="memeTitle" @blur="$v.memeTitle.$touch" type="text" class="form-control" placeholder="Title" name="Title">
           <template v-if="$v.memeTitle.$error">
             <p v-if="!$v.memeTitle.required" class="error-message">Title is required!</p>
-            <!-- <p v-else-if="!$v.email.email" class="error-message">Please enter valid email!</p> -->
         </template>
       </div>
         <div class="form-group">
@@ -29,14 +28,13 @@
 <script>
 import { validationMixin } from "vuelidate";
 import { required, helpers} from "vuelidate/lib/validators";
-
-import authAxios from "@/axios";
+import memeMixin from "../mixins/meme-create-mixin.js";
 
 const httpRegex = helpers.regex('httpRegex', /https?:\/\/.*/)
 
 // import authAxios from "@/axios";
 export default {
-    mixins: [validationMixin],
+    mixins: [validationMixin, memeMixin],
   data() {
     return {
       memeTitle: "",
@@ -59,21 +57,7 @@ export default {
         memeTitle: this.memeTitle,
         imageUrl: this.imageUrl,
       };
-
-      // Project Settings -> Web API key
-      authAxios
-        .post(
-          "memes/",
-            payload
-          
-        )
-        .then(() => {
-
-          this.$router.push('/');
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      this.memeCreate(payload);  
     }
   }
 }
