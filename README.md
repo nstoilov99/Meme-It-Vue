@@ -1,4 +1,5 @@
 # meme-it-vue
+Meme-it is an application in which you can see other people's and upload your favourite memes. It has user interfave where you can see your own memes as well as change your personal information. Being logged in will give the privilage to see each meme comments
 
 ## Project setup
 ```
