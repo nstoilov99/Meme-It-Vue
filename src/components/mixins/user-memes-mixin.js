@@ -13,7 +13,7 @@ export default {
                 const res = await axios.get(`user/`+userId );
                 
                 const allMemesRes = res.data[0].memes;
-console.log(allMemesRes);
+                console.log(allMemesRes);
 
                 
                 for (const memeId in allMemesRes) {
@@ -22,6 +22,22 @@ console.log(allMemesRes);
                     ...allMemesRes[memeId]
                   });
                 }
+            } catch(err) {
+                console.log(err);
+            }
+        },
+        async memeDelete(id){
+            try {
+                
+                return await axios
+                .delete("memes/" + id)
+                .then(() => {
+                  //   const { email, _id } = res.data;
+                  this.$router.go();
+                })
+                .catch(err => {
+                  console.error(err);
+                });
             } catch(err) {
                 console.log(err);
             }

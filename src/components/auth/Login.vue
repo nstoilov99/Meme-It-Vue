@@ -65,7 +65,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped >
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css);
 
 .login-form {

@@ -99,11 +99,11 @@ import {
   maxLength
 } from "vuelidate/lib/validators";
 
-import authAxios from "@/axios";
 import memesMixin from "../mixins/user-memes-mixin";
+import userMixin from "../mixins/user-update.mixin";
 
 export default {
-  mixins: [validationMixin, memesMixin],
+  mixins: [validationMixin, memesMixin, userMixin],
   data() {
     return {
       user: sessionStorage.getItem("user"),
@@ -136,30 +136,11 @@ export default {
       const payload = {
         email: this.email,
         password: this.password
-      };
-
-      // Project Settings -> Web API key
-      authAxios
-        .put("user/" + this.userId, payload)
-        .then(() => {
-
-          this.$cookie.delete('x-auth-token', {domain: 'localhost'});
-          this.$router.push('/login')
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      }; 
+      this.userUpdate(this.userId, payload)
     },
     deleteMeme(memeId) {
-      authAxios
-        .delete("memes/" + memeId)
-        .then(() => {
-          //   const { email, _id } = res.data;
-          this.$router.go();
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      this.memeDelete(memeId)
     }
   }
 };

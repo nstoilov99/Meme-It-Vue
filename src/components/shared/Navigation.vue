@@ -1,15 +1,13 @@
 <template>
   <div class="topnav">
-    <router-link class='link' to="/">Home</router-link>
-    <router-link v-if="!isAuth" class='link-float-right' to="/register">Register</router-link>
-    <router-link v-if="!isAuth" class='link-float-right' to="/login">Login</router-link>
+    <router-link class="link" to="/">Home</router-link>
+    <router-link v-if="!isAuth" class="link-float-right" to="/register">Register</router-link>
+    <router-link v-if="!isAuth" class="link-float-right" to="/login">Login</router-link>
 
-
-    <a v-if="isAuth" class='link-float-right' @click="onLogout">Logout</a>
-    <router-link v-if="isAuth" class='link-float-right' to="/profile">Profile</router-link>
-    <router-link v-if="isAuth" class='link-float-right' to="/meme-create">Create a meme</router-link>
+    <a v-if="isAuth" class="link-float-right" @click="onLogout">Logout</a>
+    <router-link v-if="isAuth" class="link-float-right" to="/profile">Profile</router-link>
+    <router-link v-if="isAuth" class="link-float-right" to="/meme-create">Create a meme</router-link>
   </div>
-    
 </template>
 
 <script>
@@ -20,24 +18,24 @@ export default {
   name: "Navigation",
   methods: {
     onLogout() {
-      this.$emit('onAuth', false);
-      this.$cookie.delete('x-auth-token', {domain: 'localhost'});
-      this.$router.push('/login')
+      this.$emit("onAuth", false);
+      this.$cookie.delete("x-auth-token", { domain: "localhost" });
+      this.$router.push("/login");
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
 .topnav {
   background-color: #333;
   overflow: hidden;
-  
+
   text-decoration: none;
 }
 
 /* Style the links inside the navigation bar */
-.topnav .link{
+.topnav .link {
   float: left;
   color: #f2f2f2;
   text-align: center;
@@ -45,7 +43,7 @@ export default {
   text-decoration: none;
   font-size: 17px;
 }
-.topnav .link-float-right{
+.topnav .link-float-right {
   float: right;
   color: #f2f2f2;
   text-align: center;

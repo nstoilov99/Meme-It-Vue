@@ -1,5 +1,4 @@
 import axios from '@/axios';
-
 export default {
     methods: {
         async userLogin(payload) {
