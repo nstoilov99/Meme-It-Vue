@@ -3,8 +3,6 @@ import VueRouter from 'vue-router';
 
 import Home from './components/meme/List.vue'
 import Profile from './components/user/Profile.vue'
-import Register from './components/auth/Register.vue'
-import Login from './components/auth/Login.vue'
 import MemeCreate from './components/meme/Create.vue'
 import MemeDetail from './components/meme/Detail.vue'
 import NotFound from './components/shared/NotFound.vue'
@@ -32,18 +30,20 @@ function authGuard(to, from, next) {
 
 
 const routes = [
-    { path: '/', component: Home },
-    {
-        path: '/login', component: Login, beforeEnter: anonymousGuard
+    { 
+        path: '/', component: Home,
     },
     {
-        path: '/register', component: Register, beforeEnter: anonymousGuard
+        path: '/login', component: () => import('./components/auth/Login.vue'), beforeEnter: anonymousGuard
+    },
+    {
+        path: '/register', component: () => import('./components/auth/Register.vue'), beforeEnter: anonymousGuard
     },
     {
         path: '/meme-create', component: MemeCreate, beforeEnter: authGuard
     },
     {
-        path: '/detail/:id', component: MemeDetail, beforeEnter: authGuard
+      path: '/detail/:id', component: MemeDetail, beforeEnter: authGuard
     },
     {
         path: '/profile', component: Profile, beforeEnter: authGuard
